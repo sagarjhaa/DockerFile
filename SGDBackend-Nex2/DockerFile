@@ -1,0 +1,19 @@
+FROM ubuntu:latest
+
+RUN apt-get update
+RUN apt-get install git -y
+RUN apt-get install build-essential -y
+RUN apt-get install vim -y
+RUN apt-get install npm -y
+RUN apt-get install python-pip -y
+RUN apt-get install python3 python3-pip -y
+RUN pip install virtualenv virtualenvwrapper
+
+RUN git clone https://github.com/yeastgenome/SGDBackend-Nex2.git
+
+#Create a virtualenv
+RUN /bin/bash -c "source /usr/local/bin/virtualenvwrapper.sh && mkvirtualenv -p python3 BE3"
+
+#Add lines to .bashrc file to have workon command available on spinning up.
+RUN echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
+RUN echo 'source /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc 
